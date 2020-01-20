@@ -78,6 +78,16 @@ TODO add more
 
 #### Azure CLI
 
+```bash
+az vm create --resource-group TutorialResources \
+  --name TutorialVM1 \
+  --image UbuntuLTS \
+  --generate-ssh-keys \
+  --output json \
+  --verbose 
+```
+
+
 
 #### Programmatic (APIs)
 
@@ -116,4 +126,9 @@ A fault domain is a logical group of hardware in Azure that shares a common powe
 
 
 ## Resource Manager
+
+
+
+### Documentation
+[Full documentation for Azure CLI you find here](https://docs.microsoft.com/nb-no/cli/azure/?view=azure-cli-latest)
 
