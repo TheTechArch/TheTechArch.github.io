@@ -173,3 +173,80 @@ Bitlocker
 
 ## Azure Batch
 Large-scale paralell and hig performance computing
+
+
+
+Azure Batch creates and manages a pool of compute nodes
+
+Batch can be controlled through Batch APIs and tools, command-line scripts, or the Azure portal to configure, manage, and monitor batch jobs.
+
+
+Azure Batch can be used for Intrinsically parallel jobs, where the nodes does not need to talk to each other or you can run your tightly coupled workloads with Batch using Microsoft MPI or Intel MPI
+to talk to each other.
+
+
+### Azure Batch Service REST API
+
+Azure Batch REST APIs can be accessed from within a service running in Azure, or directly over the Internet from any application that can send an HTTPS request and HTTPS response.
+
+All access to the Batch service requires a Batch account, and the account is the basis for authentication. The Base URL for Batch service is https://{account-name}.{region-id}.batch.azure.com.
+
+
+
+
+### Azure Batch service resources
+
+#### Account
+A Batch account is a uniquely identified entity within the Batch service. All processing is associated with a Batch account.
+
+#### Azure Storage account
+Most Batch solutions use Azure Storage for storing resource files and output file
+
+#### Compute node
+A compute node is an Azure virtual machine (VM) or cloud service VM that is dedicated to processing a portion of your application's workload. 
+
+#### Pool
+A pool is a collection of nodes that your application runs on.
+
+#### Compute nodes
+When you create a pool, you can specify which types of compute nodes you want and the target number for each. Dedicated compute nodes or 
+Low-priority compute nodes
+
+#### Job 
+A job is a collection of tasks
+
+You can specify an optional job priority.
+
+
+#### Application Packages
+
+
+### Azure Batch service quotas and limits
+
+As with other Azure services, there are limits on certain resources associated with the Batch service.
+
+See details on limits [here](https://docs.microsoft.com/en-us/azure/batch/batch-quota-limit).
+
+
+
+### Running Batch jobs with Azure CLI
+
+
+#### Create Resource group
+
+```bash
+
+az group create \
+    --name batchResourceGroup \
+    --location norwayeast
+
+``` 
+
+
+
+Batch can detect and then retry failed tasks
+
+By default, jobs remain in the active state when all tasks within the job are complete. 
+
+
+Every request made against the Batch service must be authenticated.
