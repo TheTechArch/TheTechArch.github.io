@@ -1,0 +1,121 @@
+## Login
+
+
+az account set --subscription  [subscriptionID]
+
+az group create --name altinn-studio-linux-vm --location westeurope
+
+
+
+az vm create --resource-group altinn-studio-linux-vm --name myVM --image UbuntuLTS --admin-username azureuser --generate-ssh-keys
+a
+## Connect to Azure 
+ssh azureuser@52.174.138.96
+
+
+https://docs.microsoft.com/en-us/azure/virtual-machines/linux/use-remote-desktop
+
+
+sudo apt-get update
+sudo apt-get install xfce4
+
+sudo apt-get -y install xrdp
+sudo systemctl enable xrdp
+
+echo xfce4-session >~/.xsession
+
+sudo service xrdp restart
+
+
+az vm open-port --resource-group altinn-studio-linux-vm --name myVM --port 3389
+
+
+
+
+```bash
+
+sudo snap install --classic code
+
+```
+
+
+
+https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
+
+
+
+
+Install .Net
+
+https://docs.microsoft.com/en-us/dotnet/core/install/linux-package-manager-ubuntu-1804
+
+```bash
+
+wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+
+```
+
+
+## Install the ASP.NET Core runtime
+Update the products available for installation, then install the ASP.NET Core runtime. In your terminal, run the following commands.
+
+```bash
+sudo add-apt-repository universe
+sudo apt-get update
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install dotnet-sdk-3.1
+
+```
+
+## Install the ASP.NET Core runtime
+Update the products available for installation, then install the ASP.NET Core runtime. In your terminal, run the following commands.
+
+```bash
+
+sudo add-apt-repository universe
+sudo apt-get update
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install aspnetcore-runtime-3.1
+
+```
+
+## Install the .NET Core runtime
+Update the products available for installation, then install the .NET Core runtime. In your terminal, run the following commands.
+
+```bash
+
+sudo add-apt-repository universe
+sudo apt-get update
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install dotnet-runtime-3.1
+
+```
+
+
+sudo snap install docker
+sudo apt install docker-compose
+
+
+
+
+
+
+https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
+
+
+```bash
+
+sudo apt-get remove docker docker-engine docker.io
+
+```
+
+sudo apt install docker.io
+
+sudo systemctl start docker
+
+
+https://phoenixnap.com/kb/install-docker-compose-ubuntu
