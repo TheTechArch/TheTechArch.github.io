@@ -1,49 +1,65 @@
 ## Login
+```AzureCli
 
-
-az account set --subscription  [subscriptionID]
-
-az group create --name altinn-studio-linux-vm --location westeurope
-
-
-
-az vm create --resource-group altinn-studio-linux-vm --name myVM --image UbuntuLTS --admin-username azureuser --generate-ssh-keys
-a
-## Connect to Azure 
-ssh azureuser@52.174.138.96
-
-
-https://docs.microsoft.com/en-us/azure/virtual-machines/linux/use-remote-desktop
-
-
-sudo apt-get update
-sudo apt-get install xfce4
-
-sudo apt-get -y install xrdp
-sudo systemctl enable xrdp
-
-echo xfce4-session >~/.xsession
-
-sudo service xrdp restart
-
-
-az vm open-port --resource-group altinn-studio-linux-vm --name myVM --port 3389
-
-
-
-
-```bash
-
-sudo snap install --classic code
-
+az login --use-device-code
 ```
 
 
 
-https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
+**Check which subscription that is set and update if needed**
+```AzCli
+az account show 
 
+az account list
 
+az account set --subscription  [subscriptionID]
+```
 
+**Create resource group
+
+```AzureCli
+az group create --name altinn-studio-linux-appvm --location westeurope
+```
+
+az vm create --resource-group altinn-studio-linux-appvm --name myVM --image UbuntuLTS --admin-username azureuser --generate-ssh-keys
+
+## Connect to Azure 
+ssh azureuser@52.232.3.37
+
+https://docs.microsoft.com/en-us/azure/virtual-machines/linux/use-remote-desktop
+
+**Install desktop**
+
+```bash
+sudo apt-get update
+sudo apt-get install xfce4
+``` 
+**Install remote desktop**
+
+```bash
+sudo apt-get -y install xrdp
+sudo systemctl enable xrdp
+```
+
+**Set xfc4 as default desktop when using remote desktop**
+
+```bash
+echo xfce4-session >~/.xsession
+```
+
+```bash
+sudo service xrdp restart
+````
+
+```AzureCli
+az vm open-port --resource-group altinn-studio-linux-appvm --name myVM --port 3389
+```
+
+**Set password**
+
+```bash
+sudo passwd azureuser
+```
 
 Install .Net
 
@@ -96,6 +112,75 @@ sudo apt-get install dotnet-runtime-3.1
 ```
 
 
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+sudo nano /etc/hosts
+
+
+
+```bash
+sudo snap install --classic code
+```
+
+
+**Install NGIX
+https://www.nginx.com/blog/setting-up-nginx/
+
+
+
+sudo wget http://nginx.org/keys/nginx_signing.key
+
+sudo apt-key add nginx_signing.key
+
+
+cd /etc/apt
+
+
+sudo nano sources.list
+
+
+deb http://nginx.org/packages/ubuntu xenial nginx
+deb-src http://nginx.org/packages/ubuntu xenial nginx
+
+sudo apt-get update
+
+sudo apt-get install nginx
+
+sudo service nginx start
+
+cd /etc/nginx
+
+sudo nano nginx.conf
+
+Past 
+https://raw.githubusercontent.com/Altinn/altinn-studio/master/src/development/loadbalancer/nginx.conf
+
+
+Replace host.docker.internal with 127.0.0.1
+
+
+ctrl + xe
+
+sudo nginx -s reload
+
+cd /home/azureuser/
+
+mkdir repos
+
+
+git clone https://github.com/Altinn/altinn-studio.git
+
+
+git clone https://dev.altinn.studio/repos/ttd/mva.git
+
+
+https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
+
+
+
 sudo snap install docker
 sudo apt install docker-compose
 
@@ -119,3 +204,30 @@ sudo systemctl start docker
 
 
 https://phoenixnap.com/kb/install-docker-compose-ubuntu
+
+
+
+
+sudo docker-compose up -d --build
+
+sudo docker-compose down
+
+
+sudo nano /etc/hosts 
+
+
+Add altinn3local.no 
+
+
+extra_hosts:
+    - "host.docker.internal:$DOCKER_HOST_IP"
+
+
+    ip route | grep docker0 | awk '{print $9}'.
+
+
+```bash
+sudo reboot 
+```
+
+export DOCKER_HOST_IP=172.17.0.1
